@@ -1,0 +1,12 @@
+def check_account(cardnumber):
+    return True
+def check_password(password):
+    return True
+def balence(cardnumber,password):
+    return 0
+def deposite(cardnumber,password,value):
+    return "success"
+def withdraw(cardnumber,password,value):
+    return "success"
+def transfer(cardnumber,password,value,second_cardnumber):
+    return True
