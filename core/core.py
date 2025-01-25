@@ -9,8 +9,20 @@ RESPONSE_PIPE = "/tmp/core_response_pipe"
 
 file_locks = defaultdict(threading.Lock)
 
+def logfunc(log_entry,log_path):
+    if not os.path.exists(log_path): 
+        with open(log_path, "w") as log_file:
+            log_file.write(log_entry)
+            log_file.close()
+    else:  
+        with open(log_path, "a") as log_file:
+            log_file.write(log_entry)
+            log_file.close()
+    
 def createAccount(cardNumber, initBalance):
+    print("dhgkhrkd")
     file_path = f'core/accounts/{cardNumber}.json'
+    log_path = f'core/logs/{cardNumber}.txt'
 
     if os.path.exists(file_path):
         return f"Account with card number {cardNumber} already exists."
@@ -19,6 +31,7 @@ def createAccount(cardNumber, initBalance):
         with open(file_path, "w") as acc:
             content = {"balance": initBalance}
             json.dump(content, acc, indent=4)
+        logfunc(f"account {cardNumber} created w balance{initBalance}",log_path=log_path)
         return f"Account with card number {cardNumber} successfully created with balance {initBalance}."
     except Exception as e:
         return f"Error creating account: {str(e)}"
