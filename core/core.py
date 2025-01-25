@@ -2,6 +2,7 @@ import os
 import json
 import threading
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 
 REQUEST_PIPE = "/tmp/core_request_pipe"
 RESPONSE_PIPE = "/tmp/core_response_pipe"
@@ -61,7 +62,6 @@ def process_request(request):
         return "Invalid request format"
 
 def handle_client(request_data):
-    
     try:
         request = json.loads(request_data)
         response = process_request(request)
@@ -72,19 +72,22 @@ def handle_client(request_data):
         res_pipe.write(response)
 
 if __name__ == "__main__":
-    if not os.path.exists(REQUEST_PIPE):
-        os.mkfifo(REQUEST_PIPE)
-    if not os.path.exists(RESPONSE_PIPE):
-        os.mkfifo(RESPONSE_PIPE)
+    if os.path.exists(REQUEST_PIPE):
+        os.remove(REQUEST_PIPE)
+    if os.path.exists(RESPONSE_PIPE):
+        os.remove(RESPONSE_PIPE)
+
+    os.mkfifo(REQUEST_PIPE)
+    os.mkfifo(RESPONSE_PIPE)
 
     print("Core process is running...")
 
-    while True:
-        with open(REQUEST_PIPE, "r") as req_pipe:
-            request_data = req_pipe.read().strip()
-            if request_data == "exit":
-                print("Shutting down core process.")
-                break
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        while True:
+            with open(REQUEST_PIPE, "r") as req_pipe:
+                request_data = req_pipe.read().strip()
+                if request_data == "exit":
+                    print("Shutting down core process.")
+                    break
 
-        thread = threading.Thread(target=handle_client, args=(request_data,))
-        thread.start()
+            executor.submit(handle_client, request_data)
