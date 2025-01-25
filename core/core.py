@@ -10,10 +10,19 @@ RESPONSE_PIPE = "/tmp/core_response_pipe"
 file_locks = defaultdict(threading.Lock)
 
 def createAccount(cardNumber, initBalance):
-    with open(f'core/accounts/{cardNumber}.json', "w") as acc:
-        content = {"balance": initBalance}
-        json.dump(content, acc, indent=4)
+    file_path = f'core/accounts/{cardNumber}.json'
 
+    if os.path.exists(file_path):
+        return f"Account with card number {cardNumber} already exists."
+
+    try:
+        with open(file_path, "w") as acc:
+            content = {"balance": initBalance}
+            json.dump(content, acc, indent=4)
+        return f"Account with card number {cardNumber} successfully created with balance {initBalance}."
+    except Exception as e:
+        return f"Error creating account: {str(e)}"
+    
 def withdraw(cardNumber, value):
     file_path = f'core/accounts/{cardNumber}.json'
     lock = file_locks[file_path] 
