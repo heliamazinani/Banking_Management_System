@@ -2,12 +2,448 @@
 #:set colorlabel "860b1d"
 #:set bgcolor 0.9,0.9,0.9,1
 #:set colordark 0.35,0.35,0.35,1
-#:set textcolor 0,0,0.2,1
+#:set textcolor 1,1,1,0.7
+#:set cardtextcolor 1,0,0,1
 #:set fontname "lcd/Digital7-rg1mL.ttf"
+#:set font2 "lcd/Digital7-rg1mL.ttf"
+#:set fontsize "30dp"
+#:set textfontname "lcd/Digital7-rg1mL.ttf"
 #:import Gradient kivy_gradient.Gradient
 #:import get_color_from_hex kivy.utils.get_color_from_hex
-<MainWidget>:
 
+<LogIn>:
+    BoxLayout:
+        orientation:
+        orientation: 'horizontal'
+        padding : ["60dp","40dp","5dp","30dp"]
+        spacing: "10dp"
+        canvas.before:
+            Color:
+                rgba:bgcolor
+            Rectangle:
+                pos:self.pos
+                size:self.size
+                texture:
+                    Gradient.vertical(
+                    get_color_from_hex("737373"), 
+                    get_color_from_hex("8a8a8a"), 
+                    get_color_from_hex("aeaeae")
+                    )
+
+        BoxLayout:
+            id: left
+            orientation: 'vertical'
+            padding : ["20dp","10dp","20dp","30dp"]
+            size_hint: 3.1, 1
+            canvas.before:
+                Color:
+                    rgba:1,1,1,1
+                Rectangle:
+                    pos:self.pos
+                    size:self.size
+                    texture:
+                        Gradient.vertical(
+                        get_color_from_hex("606060"), 
+                        get_color_from_hex("454545"), 
+                        get_color_from_hex("383838"),
+                        get_color_from_hex("383838"), 
+                        get_color_from_hex("454545"), 
+                        get_color_from_hex("454545"), 
+                        get_color_from_hex("454545"), 
+                        get_color_from_hex("454545"), 
+                        get_color_from_hex("434343"), 
+                        get_color_from_hex("383838")
+                        )
+                Color:
+                    rgba:1,1,1,0.3
+                Line:
+                    width: dp(1)
+                    rectangle: (*self.pos, self.width, self.height)
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: 1, 3
+                canvas.before:
+                    Color:
+                        rgba:colordark
+                    Rectangle:
+                        pos:self.pos
+                        size:self.size
+                    Color:
+                        rgba:0.2,0.2,0.2,0.5
+                    Line:
+                        width: dp(2)
+                        rectangle: (*self.pos, self.width, self.height)
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding : ["15dp","130dp","10dp","10dp"]
+                    spacing: "10dp"
+                    canvas.before:
+                        Color:
+                            rgba:1,1,1,1
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                            texture:
+                                Gradient.horizontal(
+                                get_color_from_hex("595959"), 
+                                get_color_from_hex("656565"), 
+                                get_color_from_hex("707070"), 
+                                get_color_from_hex("656565")
+                                )
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_1(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_2(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_3(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_4(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
+
+                BoxLayout:
+                    size_hint: 4.5, 1
+                    orientation: 'vertical'
+                    canvas.before:
+                        Color:
+                            rgba:1,1,1,1
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                            texture:
+                                Gradient.horizontal(
+                                get_color_from_hex("3781b0"), 
+                                get_color_from_hex("6a9cc4"), 
+                                get_color_from_hex("6a9cc4"), 
+                                get_color_from_hex("3781b0")
+                                )
+                    Label:
+                        size_hint: 1,0.5
+                        text: 'Enter Password'
+                        color: textcolor
+                        font_name: fontname
+                        font_size: self.height / 4
+                    TextInput:
+                        id: d
+                        font_name: textfontname
+                        font_size: fontsize
+                        size_hint: 1, 0.2
+                        size: 1, 50
+                        hint_text:"_ _ _ _"
+                        multiline : False
+                        background_color: 0,0,0.3,0
+                        foreground_color: 1,1,1,1
+                        on_text_validate: root.on_enter()                    
+
+                    GridLayout:
+                        cols:2
+                        padding : ["0dp","0dp","0dp","5dp"]
+                        spacing: "20dp"
+                        Label:
+                            text: root.text1
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
+                        Label:
+
+                            text: root.text5
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
+                        Label:
+                            text: root.text2
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
+                        Label:
+                            text: root.text6
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
+                        Label:
+                            text: root.text3
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
+                        Label:
+                            text: root.text7
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
+                        Label:
+                            text: root.text4
+                            color: textcolor
+                            font_name: fontname  
+                            font_size: self.height / 2               
+                        Label:
+                            text: root.text8
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
+
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding : ["10dp","130dp","15dp","10dp"]
+                    spacing: "10dp"
+                    canvas.before:
+                        Color:
+                            rgba:1,1,1,1
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                            texture:
+                                Gradient.horizontal(
+                                get_color_from_hex("656565"), 
+                                get_color_from_hex("707070"), 
+                                get_color_from_hex("656565"), 
+                                get_color_from_hex("595959")
+                                )
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_5(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
+                        # on_press: root.manager.current = 'mw'
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_6(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_7(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_8(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
+
+    #cash_layout
+            BoxLayout:
+                padding : ["100dp","20dp","100dp","30dp"]
+                spacing: "20dp"
+                orientation: 'vertical'
+                canvas.before:
+                    Color:
+                        rgba:1,1,1,0.5
+                    Rectangle:
+                        pos:self.pos
+                        size:self.size
+                        texture:
+                            Gradient.vertical(
+                            get_color_from_hex("383838"), 
+                            get_color_from_hex("656565"), 
+                            get_color_from_hex("707070"), 
+                            get_color_from_hex("aaaaaa")
+                            )
+                    Color:
+                        rgba:0.9,0.9,0.9,0.1
+                    Line:
+                        width: dp(1)
+                        rectangle: (*self.pos, self.width, self.height)
+                Label:
+                    text: "CASH"
+                    color: cardtextcolor
+                    font_name: font2
+                    canvas.before:
+                        Color:
+                            rgba:1,1,1,1
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                            texture:
+                                Gradient.vertical(
+                                get_color_from_hex("700b1d"), 
+                                get_color_from_hex("800b1d") ,
+                                get_color_from_hex("860b1d") ,
+                                get_color_from_hex("900b1d")
+                                )
+                        Color:
+                            rgba:0.1,0,0,0.5
+                        Line:
+                            width: dp(1)
+                            rectangle: (*self.pos, self.width, self.height)
+                Button:
+                    background_color: (32/88 , 32/88 , 32/88)
+                    size_hint: 1, 0.7
+                    canvas.before:
+                        Color:
+                            rgba: .6, .6, .6, 1
+                        Line:
+                            width: 2
+                            rectangle: self.x, self.y, self.width, self.height
+    #right_top
+        BoxLayout:
+            id: right
+            orientation: 'vertical'
+            padding : ["20dp","40dp","20dp","30dp"]
+            spacing: "40dp"
+            BoxLayout:
+                id: top_right
+                orientation: 'vertical'
+                padding : ["20dp","10dp","20dp","115dp"]
+                spacing: "30dp"
+                canvas.before:
+                    Color:
+                        rgba:1,1,1,0.3
+                    Rectangle:
+                        pos:self.pos
+                        size:self.size
+                        texture:
+                            Gradient.vertical(
+                            get_color_from_hex("303030"), 
+                            get_color_from_hex("404040") ,
+                            get_color_from_hex("202020"),
+                            get_color_from_hex("c1c1c1"), 
+                            get_color_from_hex("929292")
+                            )
+                    Color:
+                        rgba:0,0,0,0.5
+                    Line:
+                        width: dp(1)
+                        rectangle: (*self.pos, self.width, self.height)
+                Label:
+                    text: "RECEIPT"
+                    color: cardtextcolor
+                    font_name: font2
+                    canvas.before:
+                        Color:
+                            rgba:1,1,1,1
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                            texture:
+                                Gradient.vertical(
+                                get_color_from_hex("700b1d"), 
+                                get_color_from_hex("860b1d") ,
+                                get_color_from_hex("950b1d") ,
+                                get_color_from_hex("900b1d")
+                                )
+                        Color:
+                            rgba:0.1,0,0,0.5
+                        Line:
+                            width: dp(1)
+                            rectangle: (*self.pos, self.width, self.height)
+                Button:
+                    background_color: (32/88 , 32/88 , 32/88)
+                    size_hint: 1, 0.5
+                    canvas.before:
+                        Color:
+                            rgba: .6, .6, .6, 1
+                        Line:
+                            width: 2
+                            rectangle: self.x, self.y, self.width, self.height
+    #right_bot
+            BoxLayout:
+                id: top_right
+                orientation: 'vertical'
+                padding : ["20dp","10dp","20dp","115dp"]
+                spacing: "30dp"
+                canvas.before:
+                    Color:
+                        rgba:1,1,1,0.3
+                    Rectangle:
+                        pos:self.pos
+                        size:self.size
+                        texture:
+                            Gradient.vertical(
+                            get_color_from_hex("303030"), 
+                            get_color_from_hex("404040") ,
+                            get_color_from_hex("202020"),
+                            get_color_from_hex("c1c1c1"), 
+                            get_color_from_hex("929292")
+                            )
+                    Color:
+                        rgba:0,0,0,0.5
+                    Line:
+                        width: dp(1)
+                        rectangle: (*self.pos, self.width, self.height)
+                Label:
+                    text: "CARD"
+                    color: cardtextcolor
+                    font_name: font2
+                    canvas.before:
+                        Color:
+                            rgba:1,1,1,1
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                            texture:
+                                Gradient.vertical(
+                                get_color_from_hex("700b1d"), 
+                                get_color_from_hex("800b1d") ,
+                                get_color_from_hex("860b1d") ,
+                                get_color_from_hex("800b1d")
+                                )
+                        Color:
+                            rgba:0.1,0,0,0.5
+                        Line:
+                            width: dp(1)
+                            rectangle: (*self.pos, self.width, self.height)
+                Button:
+                    background_color: (32/88 , 32/88 , 32/88)
+                    size_hint: 1, 0.5
+                    canvas.before:
+                        Color:
+                            rgba: .6, .6, .6, 1
+                        Line:
+                            width: 2
+                            rectangle: self.x, self.y, self.width, self.height
+<MainWidget>:
+    inp : d
     BoxLayout:
         orientation:
         orientation: 'horizontal'
@@ -251,6 +687,8 @@
                         rectangle: (*self.pos, self.width, self.height)
                 Label:
                     text: "CASH"
+                    color: cardtextcolor
+                    font_name: font2
                     canvas.before:
                         Color:
                             rgba:1,1,1,1
@@ -310,6 +748,8 @@
                         rectangle: (*self.pos, self.width, self.height)
                 Label:
                     text: "RECEIPT"
+                    color: cardtextcolor
+                    font_name: font2
                     canvas.before:
                         Color:
                             rgba:1,1,1,1
@@ -364,6 +804,8 @@
                         rectangle: (*self.pos, self.width, self.height)
                 Label:
                     text: "CARD"
+                    color: cardtextcolor
+                    font_name: font2
                     canvas.before:
                         Color:
                             rgba:1,1,1,1
@@ -409,20 +851,31 @@
             BoxLayout:
                 orientation: "vertical"
                 size_hint: None, None
-                padding : ["20dp","0dp","20dp","5dp"]
-                spacing: "15dp"
+                padding : ["20dp","0dp","20dp","110dp"]
+                spacing: "40dp"
                 size: 400, 300
                 Label:
+                    font_name: textfontname
+                    font_size: "50dp"
                     size_hint: 1, 1
                     text: "2+2=5"
                 TextInput:
-                    size_hint: 1, 0.3
+                    id: d
+                    font_name: textfontname
+                    font_size: fontsize
+                    size_hint: 1, 0.5
                     size: 350, 50
-                    text:"dh4000000000k"
+                    hint_text:"enter card number"
                     multiline : False
-                Label:
-                    size_hint: 0.4, 1
-                    text: "mohamad javadi"
+                    background_color: 0,0,0.3,0.5
+                    foreground_color: 1,1,1,1
+                    line_spacing : 10
+                    on_text_validate: root.on_enter()
+                # Label:
+                #     font_name: textfontname
+                #     font_size: fontsize
+                #     size_hint: 0.4, 1
+                #     text: "cvv2:8008"
 
     AnchorLayout:
         anchor_x: 'right'
@@ -583,26 +1036,46 @@
                         #     rectangle: (*self.pos, self.width, self.height)
                     Label:
                         size_hint: 1,0.5
-                        text: 'welcome to 2+2=5 bank\ndo you have an account?'
-                        color: get_color_from_hex("d9d185")
+                        text: 'chose'
+                        color: textcolor
                         font_name: fontname
                         font_size: self.height / 4
 
                     GridLayout:
                         cols:2
+                        padding : ["0dp","0dp","0dp","5dp"]
+                        spacing: "20dp"
                         Label:
                             text: root.text1
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
                         Label:
 
                             text: root.text5
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
                         Label:
                             text: root.text2
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
                         Label:
                             text: root.text6
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
                         Label:
                             text: root.text3
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
                         Label:
                             text: root.text7
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
                         Label:
                             text: root.text4
                             color: textcolor
@@ -699,6 +1172,8 @@
                         rectangle: (*self.pos, self.width, self.height)
                 Label:
                     text: "CASH"
+                    color: cardtextcolor
+                    font_name: font2
                     canvas.before:
                         Color:
                             rgba:1,1,1,1
@@ -758,6 +1233,8 @@
                         rectangle: (*self.pos, self.width, self.height)
                 Label:
                     text: "RECEIPT"
+                    color: cardtextcolor
+                    font_name: font2
                     canvas.before:
                         Color:
                             rgba:1,1,1,1
@@ -812,6 +1289,8 @@
                         rectangle: (*self.pos, self.width, self.height)
                 Label:
                     text: "CARD"
+                    color: cardtextcolor
+                    font_name: font2
                     canvas.before:
                         Color:
                             rgba:1,1,1,1
@@ -983,25 +1462,45 @@
                     Label:
                         size_hint: 1,0.5
                         text: 'welcome to 2+2=5 bank\ndo you have an account?'
-                        color: get_color_from_hex("d9d185")
+                        color: textcolor
                         font_name: fontname
                         font_size: self.height / 4
 
                     GridLayout:
                         cols:2
+                        padding : ["0dp","0dp","0dp","5dp"]
+                        spacing: "20dp"
                         Label:
                             text: root.text1
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
                         Label:
 
                             text: root.text5
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
                         Label:
                             text: root.text2
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
                         Label:
                             text: root.text6
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
                         Label:
                             text: root.text3
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
                         Label:
                             text: root.text7
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
                         Label:
                             text: root.text4
                             color: textcolor
@@ -1098,6 +1597,8 @@
                         rectangle: (*self.pos, self.width, self.height)
                 Label:
                     text: "CASH"
+                    color: cardtextcolor
+                    font_name: font2
                     canvas.before:
                         Color:
                             rgba:1,1,1,1
@@ -1157,6 +1658,8 @@
                         rectangle: (*self.pos, self.width, self.height)
                 Label:
                     text: "RECEIPT"
+                    color: cardtextcolor
+                    font_name: font2
                     canvas.before:
                         Color:
                             rgba:1,1,1,1
@@ -1211,6 +1714,8 @@
                         rectangle: (*self.pos, self.width, self.height)
                 Label:
                     text: "CARD"
+                    color: cardtextcolor
+                    font_name: font2
                     canvas.before:
                         Color:
                             rgba:1,1,1,1
