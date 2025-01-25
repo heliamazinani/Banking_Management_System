@@ -406,14 +406,24 @@
                 source: "img/card.PNG"
                 size_hint: None, None
                 size: 400, 400
-                Label:
-                    size_hint: None, None
-                    size: 400, 400
-                    text:"dh4000000000k"
             BoxLayout:
-                orientation:'vertical'
+                orientation: "vertical"
+                size_hint: None, None
+                padding : ["20dp","0dp","20dp","5dp"]
+                spacing: "15dp"
+                size: 400, 300
                 Label:
-                    text:"dhjck"
+                    size_hint: 1, 1
+                    text: "2+2=5"
+                TextInput:
+                    size_hint: 1, 0.3
+                    size: 350, 50
+                    text:"dh4000000000k"
+                    multiline : False
+                Label:
+                    size_hint: 0.4, 1
+                    text: "mohamad javadi"
+
     AnchorLayout:
         anchor_x: 'right'
         anchor_y: 'bottom'
