@@ -162,14 +162,26 @@ def deposite(cardNumber, value):
     log_path = f'core/logs/{cardNumber}.txt'
 
     lock.acquire(timeout=2)
-
+    print('1')
     try:
         with open(file_path, "r+") as acc:
+            print('2')
+            
             content = json.load(acc)
+            print('3')
+            print(content)
             content["balance"] += value
+            
+            print('4')
             acc.seek(0)
+            
+            print('5')
             json.dump(content, acc, indent=4)
+            print('6')
+            
             acc.truncate()
+            
+            print('7')
             logfunc(f"Deposited {value}, New Balance: {content['balance']}",log_path=log_path)
             print("deposited")
             return f"Deposited {value}, New Balance: {content['balance']}"
@@ -183,6 +195,7 @@ def process_request(request):
     try:
         cardNumber, action, value = request
         if action == "deposit":
+            print(f'inside loggggg {cardNumber} {action} {value}')
             return deposite(cardNumber, value)
         elif action == "withdraw":
             return withdraw(cardNumber, value)
