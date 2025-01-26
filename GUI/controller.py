@@ -1,4 +1,6 @@
-from core.simpleClient import *
+import json
+REQUEST_PIPE = "/tmp/core_request_pipe"
+RESPONSE_PIPE = "/tmp/core_response_pipe"
 def check_account(cardnumber):
     return True
 def check_password(password):
@@ -6,12 +8,28 @@ def check_password(password):
 def balence(cardnumber,password):
     return 0
 def deposite(cardnumber,password,value):
-    send_request(cardnumber,"deposit",value)
-    return "success"
+    return send_request(cardnumber,"deposit",value)
+     
 def withdraw(cardnumber,password,value):
-    send_request(cardnumber,"withdraw",value)
-    return "success"
+    return send_request(cardnumber,"withdraw",value)
+    
 def transfer(cardnumber,password,value,second_cardnumber):
-    return True
+    return send_request(cardnumber,f"transfer#{second_cardnumber}",value)
 def create_account(cardnumber,password):
+    return send_request(cardnumber,"createAccount",10)
+
+
+def send_request(cardNumber, action, value=0):
+    """Send a real request to the core and get the response."""
+    request = json.dumps([cardNumber, action, value])
+    print(f"Request from {cardNumber} is: {request}")
+    
+    # Writing the request to the core
+    with open(REQUEST_PIPE, "w") as req_pipe:
+        req_pipe.write(request)
+    
+    # Reading the response from the core
+    with open(RESPONSE_PIPE, "r") as res_pipe:
+        response = res_pipe.read().strip()
+        print(f"Response for {cardNumber}: {response}")
     return True

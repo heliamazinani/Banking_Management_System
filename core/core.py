@@ -10,20 +10,28 @@ RESPONSE_PIPE = "/tmp/core_response_pipe"
 
 file_locks = defaultdict(threading.Lock)
 
-def logfunc(log_entry,log_path):
-    if not os.path.exists(log_path): 
-        with open(log_path, "w") as log_file:
-            log_file.write(log_entry)
-            log_file.close()
-    else:  
-        with open(log_path, "a") as log_file:
-            log_file.write(log_entry)
-            log_file.close()
+
+
+def logfunc(log_entry, log_path):
+    print(log_entry)
+    log_entry = str(log_entry) + '\n'
+    
+    try:
+        if not os.path.exists(log_path):
+            with open(log_path, "w") as log_file:
+                log_file.write(log_entry)
+        else:
+            with open(log_path, "a") as log_file:
+                log_file.write(log_entry)
+    except Exception as e:
+        print(f"An error occurred while writing to the log file: {e}")
+
     
 def createAccount(cardNumber, initBalance):
     print("dhgkhrkd")
     file_path = f'core/accounts/{cardNumber}.json'
     log_path = f'core/logs/{cardNumber}.txt'
+    
 
     if os.path.exists(file_path):
         return f"Account with card number {cardNumber} already exists."
@@ -32,21 +40,28 @@ def createAccount(cardNumber, initBalance):
         with open(file_path, "w") as acc:
             content = {"balance": initBalance}
             json.dump(content, acc, indent=4)
-        logfunc(f"account {cardNumber} created w balance{initBalance}",log_path=log_path)
+        logfunc(f"account {cardNumber} created w balance {initBalance}",log_path=log_path)
         return f"Account with card number {cardNumber} successfully created with balance {initBalance}."
     except Exception as e:
+        print("error")
         return f"Error creating account: {str(e)}"
     
 
 def showBalance(cardNumber):
     file_path = f'core/accounts/{cardNumber}.json'
     lock = file_locks[file_path]
+    log_path = f'core/logs/{cardNumber}.txt'
+
     
     lock.acquire(timeout=2)
     try:
         with open(file_path,"r") as acc:
             content = json.load(acc)
+               
+            logfunc(f"account {cardNumber} checked balance ",log_path=log_path)
             return f"Balance is : {content['balance']}"
+            
+
     except FileNotFoundError:
         return "Account Not Found !"
     finally:
@@ -58,6 +73,7 @@ def transfer(source, destination, value, retries=3, timeout=10):
     destination_file_path = f'core/accounts/{destination}.json'
     source_lock = file_locks[source_file_path]
     destination_lock = file_locks[destination_file_path]
+    log_path = f'core/logs/{source}.txt'
 
     start_time = time.time()  # Record the start time
     
@@ -92,7 +108,9 @@ def transfer(source, destination, value, retries=3, timeout=10):
                         dest_file.seek(0)
                         json.dump(dest_content, dest_file, indent=4)
                         dest_file.truncate()
-
+                        logfunc(f"account {source} transfered {value} to {destination}",log_path=log_path)
+                        log_path = f'core/logs/{destination}.txt'
+                        logfunc(f"account {destination} was transfered {value} ",log_path=log_path)
                         return f"Transferred {value} from {source} to {destination}."
                     else:
                         return "Insufficient balance in the source account."
@@ -118,6 +136,7 @@ def transfer(source, destination, value, retries=3, timeout=10):
 def withdraw(cardNumber, value):
     file_path = f'core/accounts/{cardNumber}.json'
     lock = file_locks[file_path] 
+    log_path = f'core/logs/{cardNumber}.txt'
 
     lock.acquire(timeout=2)
     try:
@@ -128,6 +147,7 @@ def withdraw(cardNumber, value):
                 acc.seek(0)
                 json.dump(content, acc, indent=4)
                 acc.truncate()
+                logfunc(f"Withdrawn {value}, New Balance: {content['balance']}",log_path=log_path)
                 return f"Withdrawn {value}, New Balance: {content['balance']}"
             else:
                 return "Insufficient balance."
@@ -139,6 +159,7 @@ def withdraw(cardNumber, value):
 def deposite(cardNumber, value):
     file_path = f'core/accounts/{cardNumber}.json'
     lock = file_locks[file_path]
+    log_path = f'core/logs/{cardNumber}.txt'
 
     lock.acquire(timeout=2)
 
@@ -149,8 +170,11 @@ def deposite(cardNumber, value):
             acc.seek(0)
             json.dump(content, acc, indent=4)
             acc.truncate()
+            logfunc(f"Deposited {value}, New Balance: {content['balance']}",log_path=log_path)
+            print("deposited")
             return f"Deposited {value}, New Balance: {content['balance']}"
     except FileNotFoundError:
+        print("not found")
         return "Account not found."
     finally:
         lock.release()

@@ -49,6 +49,11 @@ class CreateAccount(Screen):
         print ("clicked 7")
 
     def on_button_8(self,widget):
+        global Password
+        Password = self.cn.text  
+        global card_number
+        card_number = self.inp.text
+        print(card_number)
         if create_account(card_number,Password):
             self.manager.current = 'mainmenu'
         self.play_audio()      
@@ -61,6 +66,7 @@ class CreateAccount(Screen):
         Password = self.cn.text  
         global card_number
         card_number = self.inp.text
+        print(card_number)
 
 
 class Deposite(Screen):
@@ -96,6 +102,9 @@ class Deposite(Screen):
     def on_button_7(self,widget):
         self.play_audio()      
         print ("clicked 7")
+        global value
+        value = self.v.text
+        print(value)
         if deposite(card_number,Password,value):
             print("yippe")
             self.manager.current = 'mainmenu'
@@ -143,7 +152,10 @@ class Withdraw(Screen):
     def on_button_7(self,widget):
         self.play_audio()      
         print ("clicked 7")
-        if withdraw(card_number,Password,value):
+        global value
+        value = self.v.text
+        print(value)
+        if withdraw(card_number,Password,int(value)):
             print("yippe")
             self.manager.current = 'mainmenu'
 
@@ -190,6 +202,10 @@ class Transfer(Screen):
     def on_button_7(self,widget):
         self.play_audio()      
         print ("clicked 7")
+        global second_card_nummber
+        second_card_nummber = self.inp.text  
+        global value
+        value = self.v.text
         if transfer(card_number,Password,value,second_card_nummber):
             print("yippe")
             self.manager.current = 'mainmenu'
@@ -206,6 +222,7 @@ class Transfer(Screen):
         second_card_nummber = self.inp.text  
         global value
         value = self.v.text
+
 
 class LogIn(Screen):
     sound = SoundLoader.load('sound/keypress.mp3')
