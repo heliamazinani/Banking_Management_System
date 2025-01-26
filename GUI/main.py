@@ -121,7 +121,7 @@ class done(Screen):
         self.play_audio()      
         print ("clicked 8")
     def rec(self):
-        self.label = root.ids.rece
+        self.label = self.root.ids.rece
         anim = Animation(x=50, size=(80, 80), t='in_quad')
         anim.start(self.label)
     def play_audio(self):
