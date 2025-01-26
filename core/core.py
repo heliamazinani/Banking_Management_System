@@ -162,6 +162,10 @@ def process_request(request):
             return deposite(cardNumber, value)
         elif action == "withdraw":
             return withdraw(cardNumber, value)
+        elif action == "createAccount":
+            return createAccount(cardNumber, value)
+        elif action.split('#')[0] == "transfer":
+            return transfer(cardNumber,action.split('#')[1], value)
         else:
             return "Invalid action"
     except ValueError:
