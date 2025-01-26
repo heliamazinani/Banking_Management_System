@@ -1,2 +1,19 @@
 account 1009 created w balance 10
 Withdrawn 5, New Balance: 5
+account 1009 checked balance 
+account 1009 checked balance 
+account 1009 checked balance 
+account 1009 checked balance 
+account 1009 checked balance 
+account 1009 checked balance 
+account 1009 checked balance 
+Withdrawn 5, New Balance: 0
+account 1009 checked balance 
+account 1009 was transfered 6 
+Withdrawn 5, New Balance: 1
+account 1009 checked balance 
+account 1009 checked balance 
+account 1009 checked balance 
+account 1009 checked balance 
+account 1009 checked balance 
+account 1009 checked balance 

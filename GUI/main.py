@@ -57,7 +57,11 @@ class CreateAccount(Screen):
         print(card_number)
         if create_account(card_number,Password):
             self.manager.current = 'mainmenu'
-        self.play_audio()      
+            self.play_audio()
+        else:
+            error =SoundLoader.load("sound/error.mp3")      
+            if error:
+                error.play()  
         print ("clicked 8")
     def play_audio(self):
         if self.sound:
@@ -81,8 +85,16 @@ class done(Screen):
     text8 = StringProperty("back-->")
     global balance
     b = StringProperty(balance)
+    def __init__(self, **kwargs):
+        super(done, self).__init__(**kwargs)
+        self.b = balance
+    def set_b(self):
+        global balance
+        self.b = balance 
     def on_button_1(self,widget):      
-        self.play_audio()      
+        self.play_audio()   
+        global balance
+        self.b = balance   
         print ("clicked 1")
     def on_button_2(self,widget):
         self.play_audio()      
@@ -108,6 +120,10 @@ class done(Screen):
         self.manager.current = 'mainmenu'
         self.play_audio()      
         print ("clicked 8")
+    def rec(self):
+        self.label = root.ids.rece
+        anim = Animation(x=50, size=(80, 80), t='in_quad')
+        anim.start(self.label)
     def play_audio(self):
         if self.sound:
             self.sound.play()  
@@ -139,6 +155,7 @@ class Deposite(Screen):
         global balance
         global card_number
         balance = get_balance(card_number)
+        print(balance)
         self.manager.current = 'done'      
 
     def on_button_5(self,widget):
@@ -147,8 +164,7 @@ class Deposite(Screen):
     def on_button_6(self,widget):
         self.play_audio()      
         print ("clicked 6")
-    def on_button_7(self,widget):
-        self.play_audio()      
+    def on_button_7(self,widget):      
         print ("clicked 7")
         global value
         value = self.v.text
@@ -158,6 +174,11 @@ class Deposite(Screen):
             global balance
             balance = get_balance(card_number)
             self.manager.current = 'done'
+            self.play_audio()  
+        else:
+            error =SoundLoader.load("sound/error.mp3")      
+            if error:
+                error.play()  
 
     def on_button_8(self,widget):
         self.play_audio()      
@@ -199,8 +220,7 @@ class Withdraw(Screen):
     def on_button_6(self,widget):
         self.play_audio()      
         print ("clicked 6")
-    def on_button_7(self,widget):
-        self.play_audio()      
+    def on_button_7(self,widget):    
         print ("clicked 7")
         global value
         value = self.v.text
@@ -209,7 +229,14 @@ class Withdraw(Screen):
             print("yippe")
             global balance
             balance = get_balance(card_number)
+            done.b = balance
+            print(done.b)
             self.manager.current = 'done'
+            self.play_audio()  
+        else:
+            error =SoundLoader.load("sound/error.mp3")      
+            if error:
+                error.play()  
 
     def on_button_8(self,widget):
         self.play_audio()      
@@ -251,8 +278,7 @@ class Transfer(Screen):
     def on_button_6(self,widget):
         self.play_audio()      
         print ("clicked 6")
-    def on_button_7(self,widget):
-        self.play_audio()      
+    def on_button_7(self,widget):   
         print ("clicked 7")
         global second_card_nummber
         second_card_nummber = self.inp.text  
@@ -263,6 +289,11 @@ class Transfer(Screen):
             global balance
             balance = get_balance(card_number)
             self.manager.current = 'done'
+            self.play_audio()  
+        else:
+            error =SoundLoader.load("sound/error.mp3")      
+            if error:
+                error.play()  
 
     def on_button_8(self,widget):
         self.play_audio()      
@@ -288,6 +319,7 @@ class LogIn(Screen):
     text6 = StringProperty("    ")
     text7 = StringProperty("    ")
     text8 = StringProperty("next-->")
+
     def on_button_1(self,widget):      
         self.play_audio()      
         print ("clicked 1")
@@ -313,6 +345,7 @@ class LogIn(Screen):
 
     def on_button_8(self,widget):
         if check_password(Password):
+            self.manager.add_widget(done(name=f"{card_number}"))
             self.manager.current = 'mainmenu'
         self.play_audio()      
         print ("clicked 8")
@@ -357,7 +390,9 @@ class MainMenu(Screen):
         self.play_audio()     
         global balance
         balance = get_balance(card_number) 
-        self.manager.current = 'done'
+        done.set_b(done)
+        self.manager.add_widget(done(name=f"{card_number}"))
+        self.manager.current = f"{card_number}"
         print ("clicked 5")
     def on_button_6(self,widget):
         self.play_audio()      
@@ -455,7 +490,7 @@ class BankApp(App):
         sm.add_widget(Deposite(name='deposite'))
         sm.add_widget(Withdraw(name='wd'))
         sm.add_widget(CreateAccount(name='create'))
-        sm.add_widget(done(name='done'))
+        sm.add_widget(done(name='one'))
         return sm
 
 state = "auth"

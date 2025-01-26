@@ -1,16 +1,48 @@
+import datetime
 import os
 import json
 import threading
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 import time
-
+from queue import Queue
+from datetime import datetime
 REQUEST_PIPE = "/tmp/core_request_pipe"
 RESPONSE_PIPE = "/tmp/core_response_pipe"
 
 file_locks = defaultdict(threading.Lock)
+global_log_lock = threading.Lock
 
 
+
+log_queue = Queue()
+global_log_lock = threading.Lock()
+
+def global_logfunc(log_entry):
+
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_entry = f"{timestamp} - {log_entry}"
+
+    log_queue.put(log_entry)
+
+def log_worker():
+    log_path = "global_log.txt"
+
+    while True:
+        log_entry = log_queue.get()  
+        if log_entry == "STOP":  
+            break
+
+        with global_log_lock:
+            try:
+                with open(log_path, "a") as log_file:
+                    log_file.write(log_entry + "\n")
+            except Exception as e:
+                print(f"Error writing to log file: {e}")
+
+# Start the logging thread
+log_thread = threading.Thread(target=log_worker, daemon=True)
+log_thread.start()
 
 def logfunc(log_entry, log_path):
     print(log_entry)
@@ -41,6 +73,7 @@ def createAccount(cardNumber, initBalance):
             content = {"balance": initBalance}
             json.dump(content, acc, indent=4)
         logfunc(f"account {cardNumber} created w balance {initBalance}",log_path=log_path)
+        global_logfunc(f"account {cardNumber} created w balance {initBalance}")
         return f"Account with card number {cardNumber} successfully created with balance {initBalance}."
     except Exception as e:
         print("error")
@@ -59,13 +92,31 @@ def showBalance(cardNumber):
             content = json.load(acc)
                
             logfunc(f"account {cardNumber} checked balance ",log_path=log_path)
-            # print('prepared res : ' ,content['balance'] )
+            global_logfunc(f"account {cardNumber} checked balance ")
+            print('prepared res : ' ,content['balance'] )
             return f"{content['balance']}"
     except FileNotFoundError:
-        return "Account Not Found !"
+        return "E Account Not Found !"
     finally:
         lock.release()
     
+def SeeTransactions(cardNumber):
+    file_path = f'core/logs/{cardNumber}.txt'
+    lock = file_locks[file_path]
+    log_path = f'core/logs/{cardNumber}.txt'
+
+    logfunc(f"account {cardNumber} checked logs ",log_path=log_path)
+    lock.acquire(timeout=2)
+    try:
+        with open(file_path,"r") as acc:
+            content = acc.read()       
+            global_logfunc(f"account {cardNumber} checked logs ")
+
+            return content
+    except FileNotFoundError:
+        return "E Account Not Found !"
+    finally:
+        lock.release()
 
 def transfer(source, destination, value, retries=5, timeout=10):
     source_file_path = f'core/accounts/{source}.json'
@@ -104,9 +155,11 @@ def transfer(source, destination, value, retries=5, timeout=10):
                         logfunc(f"account {source} transfered {value} to {destination}",log_path=log_path)
                         log_path = f'core/logs/{destination}.txt'
                         logfunc(f"account {destination} was transfered {value} ",log_path=log_path)
+                        global_logfunc(f"Transferred {value} from {source} to {destination}.")
                         return f"Transferred {value} from {source} to {destination}."
                     else:
-                        return "Insufficient balance in the source account."
+                        global_logfunc(f"Transfer from {source} to {destination} failed: Insufficient balance.")
+                        return "E Insufficient balance in the source account."
             except FileNotFoundError as e:
                 return f"Error: {e}"
             finally:
@@ -117,10 +170,9 @@ def transfer(source, destination, value, retries=5, timeout=10):
                 source_lock.release()
             if acquired_destination:
                 destination_lock.release()
-
-            time.sleep(0.5)
-    
-    return "Could not acquire both locks after multiple attempts, transfer aborted."
+            time.sleep(0.5)  
+    global_logfunc(f"Transfer from {source} to {destination} failed: Unable to acquire locks.")
+    return "E Could not acquire both locks after multiple attempts, transfer aborted."
     
 
 def withdraw(cardNumber, value):
@@ -138,11 +190,14 @@ def withdraw(cardNumber, value):
                 json.dump(content, acc, indent=4)
                 acc.truncate()
                 logfunc(f"Withdrawn {value}, New Balance: {content['balance']}",log_path=log_path)
+                global_logfunc(f"Account {cardNumber}: Withdrawn {value}, New Balance: {content['balance']}")
                 return f"Withdrawn {value}, New Balance: {content['balance']}"
             else:
-                return "Insufficient balance."
+                global_logfunc(f"Account {cardNumber}: Insufficient balance for withdrawal of {value}")
+                return "E Insufficient balance."
     except FileNotFoundError:
-        return "Account not found."
+        global_logfunc(f"E Account {cardNumber}: Withdrawal attempt failed, account not found.")
+        return "E Account not found."
     finally:
         lock.release()
 
@@ -173,11 +228,12 @@ def deposite(cardNumber, value):
             
             # print('7')
             logfunc(f"Deposited {value}, New Balance: {content['balance']}",log_path=log_path)
+            global_logfunc(f"Deposited {value}, New Balance: {content['balance']}")
             print("deposited")
             return f"Deposited {value}, New Balance: {content['balance']}"
     except FileNotFoundError:
         print("not found")
-        return "Account not found."
+        return "E Account not found."
     finally:
         lock.release()
 
@@ -195,6 +251,8 @@ def process_request(request):
             return transfer(cardNumber,action.split('#')[1], value)
         elif action == "showBalance":
             return showBalance(cardNumber)
+        elif action == "transactions":
+            return SeeTransactions(cardNumber)
         else:
             return "Invalid action"
     except ValueError:
@@ -205,6 +263,7 @@ def handle_client(request_data):
     try:
         request = json.loads(request_data)
         response = process_request(request)
+        # global_logfunc(response)
     except json.JSONDecodeError:
         response = "Invalid JSON request"
 
@@ -213,6 +272,7 @@ def handle_client(request_data):
         res_pipe.write(response)
 
 if __name__ == "__main__":
+
     if os.path.exists(REQUEST_PIPE):
         os.remove(REQUEST_PIPE)
     if os.path.exists(RESPONSE_PIPE):
@@ -223,12 +283,20 @@ if __name__ == "__main__":
 
     print("Core process is running...")
 
-    with ThreadPoolExecutor(max_workers=20) as executor:
-        while True:
-            with open(REQUEST_PIPE, "r") as req_pipe:
-                request_data = req_pipe.read().strip()
-                if request_data == "exit":
-                    print("Shutting down core process.")
-                    break
+    log_thread = threading.Thread(target=log_worker, daemon=True)
+    log_thread.start()
 
-            executor.submit(handle_client, request_data)
+    try:
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            while True:
+                with open(REQUEST_PIPE, "r") as req_pipe:
+                    request_data = req_pipe.read().strip()
+                    if request_data == "exit":
+                        print("Shutting down core process.")
+                        break
+
+                executor.submit(handle_client, request_data)
+    finally:
+        log_queue.put("STOP")
+        log_thread.join()
+        print("Logging thread stopped.")
