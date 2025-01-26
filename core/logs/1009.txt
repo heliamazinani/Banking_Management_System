@@ -1,0 +1,2 @@
+account 1009 created w balance 10
+Withdrawn 5, New Balance: 5
