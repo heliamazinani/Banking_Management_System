@@ -59,7 +59,7 @@ def showBalance(cardNumber):
             content = json.load(acc)
                
             logfunc(f"account {cardNumber} checked balance ",log_path=log_path)
-            return f"Balance is : {content['balance']}"
+            return content['balance']
             
 
     except FileNotFoundError:
@@ -168,20 +168,20 @@ def deposite(cardNumber, value):
             print('2')
             
             content = json.load(acc)
-            print('3')
+            # print('3')
             print(content)
             content["balance"] += value
             
-            print('4')
+            # print('4')
             acc.seek(0)
             
-            print('5')
+            # print('5')
             json.dump(content, acc, indent=4)
-            print('6')
+            # print('6')
             
             acc.truncate()
             
-            print('7')
+            # print('7')
             logfunc(f"Deposited {value}, New Balance: {content['balance']}",log_path=log_path)
             print("deposited")
             return f"Deposited {value}, New Balance: {content['balance']}"
@@ -203,6 +203,8 @@ def process_request(request):
             return createAccount(cardNumber, value)
         elif action.split('#')[0] == "transfer":
             return transfer(cardNumber,action.split('#')[1], value)
+        elif action == "showBalance":
+            return showBalance(cardNumber)
         else:
             return "Invalid action"
     except ValueError:
