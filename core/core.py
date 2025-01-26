@@ -11,6 +11,21 @@ RESPONSE_PIPE = "/tmp/core_response_pipe"
 file_locks = defaultdict(threading.Lock)
 log_file_lock = threading.Lock
 
+def global_logfunc(log_entry):
+    log_path = "/global_log.txt"
+
+    log_entry = str(log_entry) + '\n'
+    with log_file_lock:
+        try:
+            if not os.path.exists(log_path):
+                with open(log_path, "w") as log_file:
+                    log_file.write(log_entry)
+            else:
+                with open(log_path, "a") as log_file:
+                    log_file.write(log_entry)
+        except Exception as e:
+            print(f"An error occurred while writing to the log file: {e}")
+
 def logfunc(log_entry, log_path):
     print(log_entry)
     log_entry = str(log_entry) + '\n'
@@ -40,6 +55,7 @@ def createAccount(cardNumber, initBalance):
             content = {"balance": initBalance}
             json.dump(content, acc, indent=4)
         logfunc(f"account {cardNumber} created w balance {initBalance}",log_path=log_path)
+
         return f"Account with card number {cardNumber} successfully created with balance {initBalance}."
     except Exception as e:
         print("error")
@@ -213,6 +229,7 @@ def handle_client(request_data):
     try:
         request = json.loads(request_data)
         response = process_request(request)
+        # global_logfunc(response)
     except json.JSONDecodeError:
         response = "Invalid JSON request"
 
