@@ -1,0 +1,5 @@
+account  checked balance 
+Withdrawn 1, New Balance: 9
+account  checked balance 
+Deposited 1, New Balance: 10
+account  checked balance 
