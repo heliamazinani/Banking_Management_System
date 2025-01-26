@@ -15,6 +15,7 @@ card_number = "nothing"
 Password = "nothing"
 second_card_nummber = "nothing"
 value = "0"
+balance = " "
 class CreateAccount(Screen):
     sound = SoundLoader.load('sound/keypress.mp3')
     text1 = StringProperty("    ")
@@ -68,6 +69,51 @@ class CreateAccount(Screen):
         card_number = self.inp.text
         print(card_number)
 
+class done(Screen):
+    sound = SoundLoader.load('sound/keypress.mp3')
+    text1 = StringProperty("    ")
+    text2 = StringProperty("    ")
+    text3 = StringProperty("    ")
+    text4 = StringProperty("<--exit")
+    text5 = StringProperty("    ")
+    text6 = StringProperty("    ")
+    text7 = StringProperty("    ")
+    text8 = StringProperty("back-->")
+    global balance
+    b = StringProperty(balance)
+    def on_button_1(self,widget):      
+        self.play_audio()      
+        print ("clicked 1")
+    def on_button_2(self,widget):
+        self.play_audio()      
+        print ("clicked 2")
+    def on_button_3(self,widget):
+        self.play_audio()      
+        print ("clicked 3")
+    def on_button_4(self,widget):
+        self.play_audio()      
+        print ("clicked 4")
+        App.get_running_app().stop()  
+    def on_button_5(self,widget):
+        self.play_audio()      
+        print ("clicked 5")
+    def on_button_6(self,widget):
+        self.play_audio()      
+        print ("clicked 6")
+    def on_button_7(self,widget):
+        self.play_audio()      
+        print ("clicked 7")
+
+    def on_button_8(self,widget):
+
+        self.manager.current = 'mainmenu'
+        self.play_audio()      
+        print ("clicked 8")
+    def play_audio(self):
+        if self.sound:
+            self.sound.play()  
+
+
 
 class Deposite(Screen):
     sound = SoundLoader.load('sound/keypress.mp3')
@@ -91,7 +137,10 @@ class Deposite(Screen):
     def on_button_4(self,widget):
         self.play_audio()      
         print ("clicked 4")
-        self.manager.current = 'mainmenu'      
+        global balance
+        global card_number
+        balance = get_balance(card_number)
+        self.manager.current = 'done'      
 
     def on_button_5(self,widget):
         self.play_audio()      
@@ -105,7 +154,7 @@ class Deposite(Screen):
         global value
         value = self.v.text
         print(value)
-        if deposite(card_number,Password,value):
+        if deposite(card_number,Password,int(value)):
             print("yippe")
             self.manager.current = 'mainmenu'
 
@@ -206,7 +255,7 @@ class Transfer(Screen):
         second_card_nummber = self.inp.text  
         global value
         value = self.v.text
-        if transfer(card_number,Password,value,second_card_nummber):
+        if transfer(card_number,Password,int(value),second_card_nummber):
             print("yippe")
             self.manager.current = 'mainmenu'
 

@@ -11,7 +11,279 @@
 #:import Gradient kivy_gradient.Gradient
 #:import get_color_from_hex kivy.utils.get_color_from_hex
 
+<done>:
+    inp: d
+    cn: c
+    BoxLayout:
+        orientation:
+        orientation: 'horizontal'
+        padding : ["60dp","40dp","5dp","30dp"]
+        spacing: "10dp"
+        canvas.before:
+            Color:
+                rgba:bgcolor
+            Rectangle:
+                pos:self.pos
+                size:self.size
+                texture:
+                    Gradient.vertical(
+                    get_color_from_hex("737373"), 
+                    get_color_from_hex("8a8a8a"), 
+                    get_color_from_hex("aeaeae")
+                    )
 
+        BoxLayout:
+            id: left
+            orientation: 'vertical'
+            padding : ["20dp","10dp","20dp","30dp"]
+            size_hint: 3.1, 1
+            canvas.before:
+                Color:
+                    rgba:1,1,1,1
+                Rectangle:
+                    pos:self.pos
+                    size:self.size
+                    texture:
+                        Gradient.vertical(
+                        get_color_from_hex("606060"), 
+                        get_color_from_hex("454545"), 
+                        get_color_from_hex("383838"),
+                        get_color_from_hex("383838"), 
+                        get_color_from_hex("454545"), 
+                        get_color_from_hex("454545"), 
+                        get_color_from_hex("454545"), 
+                        get_color_from_hex("454545"), 
+                        get_color_from_hex("434343"), 
+                        get_color_from_hex("383838")
+                        )
+                Color:
+                    rgba:1,1,1,0.3
+                Line:
+                    width: dp(1)
+                    rectangle: (*self.pos, self.width, self.height)
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: 1, 3
+                canvas.before:
+                    Color:
+                        rgba:colordark
+                    Rectangle:
+                        pos:self.pos
+                        size:self.size
+                    Color:
+                        rgba:0.2,0.2,0.2,0.5
+                    Line:
+                        width: dp(2)
+                        rectangle: (*self.pos, self.width, self.height)
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding : ["15dp","130dp","10dp","10dp"]
+                    spacing: "10dp"
+                    canvas.before:
+                        Color:
+                            rgba:1,1,1,1
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                            texture:
+                                Gradient.horizontal(
+                                get_color_from_hex("595959"), 
+                                get_color_from_hex("656565"), 
+                                get_color_from_hex("707070"), 
+                                get_color_from_hex("656565")
+                                )
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_1(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_2(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_3(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_4(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
+
+                BoxLayout:
+                    size_hint: 4.5, 1
+                    orientation: 'vertical'
+                    spacing:"0dp"
+                    canvas.before:
+                        Color:
+                            rgba:1,1,1,1
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                            texture:
+                                Gradient.horizontal(
+                                get_color_from_hex("3781b0"), 
+                                get_color_from_hex("6a9cc4"), 
+                                get_color_from_hex("6a9cc4"), 
+                                get_color_from_hex("3781b0")
+                                )
+
+                    AnchorLayout:
+                        size_hint: 1,0.3
+                        anchor_x: 'center'
+                        anchor_y: 'center'
+                        Label:
+                            id: d
+                            text: root.balance
+                            color: textcolor
+                            size_hint: 1,0.5
+                            font_name: textfontname
+                            font_size: fontsize
+                            size_hint: None, None
+                            size: 200, 50
+
+                    AnchorLayout:
+                        size_hint: 1,0.3
+                        anchor_x: 'center'
+                        anchor_y: 'center'
+                        Label:
+                            id: c
+                            text: "succesfull"
+                            color: textcolor
+                            font_name: textfontname
+                            font_size: fontsize
+                            size_hint: None, None
+                            size: 100, 50
+                 
+
+                    GridLayout:
+                        cols:2
+                        padding : ["0dp","0dp","0dp","5dp"]
+                        spacing: "20dp"
+                        Label:
+                            text: root.text1
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
+                        Label:
+
+                            text: root.text5
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
+                        Label:
+                            text: root.text2
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
+                        Label:
+                            text: root.text6
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
+                        Label:
+                            text: root.text3
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
+                        Label:
+                            text: root.text7
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 2
+                        Label:
+                            text: root.text4
+                            color: textcolor
+                            font_name: fontname  
+                            font_size: self.height / 1.5               
+                        Label:
+                            text: root.text8
+                            color: textcolor
+                            font_name: fontname
+                            font_size: self.height / 1.5
+
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding : ["10dp","130dp","15dp","10dp"]
+                    spacing: "10dp"
+                    canvas.before:
+                        Color:
+                            rgba:1,1,1,1
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                            texture:
+                                Gradient.horizontal(
+                                get_color_from_hex("656565"), 
+                                get_color_from_hex("707070"), 
+                                get_color_from_hex("656565"), 
+                                get_color_from_hex("595959")
+                                )
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_5(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
+                        # on_press: root.manager.current = 'mw'
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_6(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_7(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
+                    Button:
+                        background_color: (42/88 , 42/88 , 42/88)
+                        size_hint: 1, 0.7
+                        on_press: root.on_button_8(self)
+                        canvas.before:
+                            Color:
+                                rgba:0.9,0.9,0.9,0.5
+                            Line:
+                                width: dp(1)
+                                rectangle: (*self.pos, self.width, self.height)
 <CreateAccount>:
     inp: d
     cn: c
