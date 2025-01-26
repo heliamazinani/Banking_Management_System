@@ -8,12 +8,61 @@ from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
 from kivy.core.audio import SoundLoader
 from kivy.lang import Builder
 from controller import *
+from kivy.animation import Animation
 
 Builder.load_file('ban.kv')
 card_number = "nothing"
 Password = "nothing"
 second_card_nummber = "nothing"
 value = "0"
+class CreateAccount(Screen):
+    sound = SoundLoader.load('sound/keypress.mp3')
+    text1 = StringProperty("    ")
+    text2 = StringProperty("    ")
+    text3 = StringProperty("    ")
+    text4 = StringProperty("<--exit")
+    text5 = StringProperty("    ")
+    text6 = StringProperty("    ")
+    text7 = StringProperty("    ")
+    text8 = StringProperty("next-->")
+    def on_button_1(self,widget):      
+        self.play_audio()      
+        print ("clicked 1")
+    def on_button_2(self,widget):
+        self.play_audio()      
+        print ("clicked 2")
+    def on_button_3(self,widget):
+        self.play_audio()      
+        print ("clicked 3")
+    def on_button_4(self,widget):
+        self.play_audio()      
+        print ("clicked 4")
+        App.get_running_app().stop()  
+    def on_button_5(self,widget):
+        self.play_audio()      
+        print ("clicked 5")
+    def on_button_6(self,widget):
+        self.play_audio()      
+        print ("clicked 6")
+    def on_button_7(self,widget):
+        self.play_audio()      
+        print ("clicked 7")
+
+    def on_button_8(self,widget):
+        if create_account(card_number,Password):
+            self.manager.current = 'mainmenu'
+        self.play_audio()      
+        print ("clicked 8")
+    def play_audio(self):
+        if self.sound:
+            self.sound.play()  
+    def on_enter(self):
+        global Password
+        Password = self.cn.text  
+        global card_number
+        card_number = self.inp.text
+
+
 class Deposite(Screen):
     sound = SoundLoader.load('sound/keypress.mp3')
     text1 = StringProperty("    ")
@@ -203,6 +252,7 @@ class LogIn(Screen):
         global Password
         Password = self.inp.text  
 
+
 class MainMenu(Screen):
     global card_number
     card_number 
@@ -271,7 +321,7 @@ class firstpage(Screen):
         print ("clicked 3")
     def on_button_4(self,widget):
         self.play_audio()      
-        self.manager.current = 'mainmenu'
+        self.manager.current = 'create'
         print ("clicked 4")
     def on_button_5(self,widget):
         self.play_audio()      
@@ -288,9 +338,22 @@ class firstpage(Screen):
         print ("clicked 8")
     def play_audio(self):
         if self.sound:
-            self.sound.play()     
+            self.sound.play()  
+    def animate(self, instance):
+        # create an animation object. This object could be stored
+        # and reused each call or reused across different widgets.
+        # += is a sequential step, while &amp;= is in parallel
+        animation = Animation(pos =(100, 100), t ='out_bounce')
+        animation += Animation(pos =(200, 100), t ='out_bounce')
+        animation += Animation(size =(100, 50))
+
+        # apply the animation on the button, passed in the &quot;instance&quot; argument
+        # Notice that default 'click' animation (changing the button
+        # color while the mouse is down) is unchanged.
+        animation.start(instance)   
 class Card(Screen):
     flag = False
+
     def on_enter(self):
         global card_number
         card_number = self.inp.text
@@ -317,6 +380,7 @@ class BankApp(App):
         sm.add_widget(Transfer(name='transfer'))
         sm.add_widget(Deposite(name='deposite'))
         sm.add_widget(Withdraw(name='wd'))
+        sm.add_widget(CreateAccount(name='create'))
         return sm
 
 state = "auth"

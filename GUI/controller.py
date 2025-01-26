@@ -10,3 +10,5 @@ def withdraw(cardnumber,password,value):
     return "success"
 def transfer(cardnumber,password,value,second_cardnumber):
     return True
+def create_account(cardnumber,password):
+    return True
