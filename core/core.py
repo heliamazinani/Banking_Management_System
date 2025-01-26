@@ -67,39 +67,33 @@ def showBalance(cardNumber):
         lock.release()
     
 
-def transfer(source, destination, value, retries=3, timeout=10):
+def transfer(source, destination, value, retries=5, timeout=10):
     source_file_path = f'core/accounts/{source}.json'
     destination_file_path = f'core/accounts/{destination}.json'
     source_lock = file_locks[source_file_path]
     destination_lock = file_locks[destination_file_path]
     log_path = f'core/logs/{source}.txt'
 
-    start_time = time.time()  # Record the start time
+    start_time = time.time()
     
     for _ in range(retries):
-        # Check elapsed time
         elapsed_time = time.time() - start_time
         if elapsed_time >= timeout:
             return f"Transfer aborted due to timeout of {timeout} seconds."
 
-        # Try to acquire both locks
         acquired_source = source_lock.acquire(blocking=False)
         acquired_destination = destination_lock.acquire(blocking=False)
 
         if acquired_source and acquired_destination:
             try:
-                # Perform transfer
                 with open(source_file_path, "r+") as src_file, open(destination_file_path, "r+") as dest_file:
-                    # Read source and destination accounts
                     src_content = json.load(src_file)
                     dest_content = json.load(dest_file)
 
-                    # Check for sufficient balance
                     if src_content["balance"] >= value:
                         src_content["balance"] -= value
                         dest_content["balance"] += value
 
-                        # Write updated balances
                         src_file.seek(0)
                         json.dump(src_content, src_file, indent=4)
                         src_file.truncate()
@@ -116,18 +110,15 @@ def transfer(source, destination, value, retries=3, timeout=10):
             except FileNotFoundError as e:
                 return f"Error: {e}"
             finally:
-                # Release both locks
                 source_lock.release()
                 destination_lock.release()
         else:
-            # Release any lock that was acquired if both couldn't be acquired
             if acquired_source:
                 source_lock.release()
             if acquired_destination:
                 destination_lock.release()
 
-            # Retry after a short delay or on the next iteration
-            time.sleep(0.5)  # Optional: adding a delay between retries
+            time.sleep(0.5)
     
     return "Could not acquire both locks after multiple attempts, transfer aborted."
     
