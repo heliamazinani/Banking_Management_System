@@ -18,7 +18,8 @@ def transfer(cardnumber,password,value,second_cardnumber):
 def create_account(cardnumber,password):
     return send_request(cardnumber,"createAccount",10)
 
-
+def get_balance(cardnumber):
+    pass
 def send_request(cardNumber, action, value=0):
     """Send a real request to the core and get the response."""
     request = json.dumps([cardNumber, action, value])
