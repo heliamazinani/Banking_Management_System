@@ -1,0 +1,51 @@
+Deposited 10, New Balance: 28account 1010 checked balance 2025-01-26 16:22:27 - Deposited 10, New Balance: 284
+2025-01-26 16:22:27 - account 1004 checked balance 
+2025-01-26 16:47:35 - Deposited 10, New Balance: 294
+2025-01-26 16:47:35 - account 1004 checked balance 
+2025-01-26 16:47:55 - Account 1004: Insufficient balance for withdrawal of 1000
+2025-01-26 16:47:57 - Account 1004: Insufficient balance for withdrawal of 1000
+2025-01-26 16:48:09 - Account 1004: Insufficient balance for withdrawal of 1000
+2025-01-26 16:48:14 - Account 1004: Insufficient balance for withdrawal of 1000
+2025-01-26 16:48:50 - account 1004 checked balance 
+2025-01-26 16:54:01 - Account 1001: Withdrawn 10, New Balance: 0
+2025-01-26 16:54:01 - account 1001 checked balance 
+2025-01-26 16:55:54 - Account 1001: Insufficient balance for withdrawal of 5
+2025-01-26 16:56:10 - Account 1009: Withdrawn 5, New Balance: 1
+2025-01-26 16:56:10 - account 1009 checked balance 
+2025-01-26 17:19:00 - Account 1001: Insufficient balance for withdrawal of 5
+2025-01-26 17:19:11 - Account 1004: Withdrawn 5, New Balance: 289
+2025-01-26 17:19:11 - account 1004 checked balance 
+2025-01-26 17:19:52 - Account 1005: Withdrawn 1, New Balance: 84
+2025-01-26 17:19:52 - account 1005 checked balance 
+2025-01-26 17:21:32 - account 1001 checked balance 
+2025-01-26 17:21:55 - account 1009 checked balance 
+2025-01-26 17:23:42 - account 1001 checked balance 
+2025-01-26 17:24:30 - account 1001 checked balance 
+2025-01-26 17:26:45 - account 1001 checked balance 
+2025-01-26 17:27:03 - account 1005 checked balance 
+2025-01-26 17:29:14 - account 1001 checked balance 
+2025-01-26 17:29:18 - account 1001 checked balance 
+2025-01-26 17:29:48 - account 1001 checked balance 
+2025-01-26 17:29:50 - account 1001 checked balance 
+2025-01-26 17:30:24 - account 1004 checked balance 
+2025-01-26 17:30:25 - account 1004 checked balance 
+2025-01-26 17:31:28 - account 1001 checked balance 
+2025-01-26 17:31:31 - account 1001 checked balance 
+2025-01-26 17:32:04 - account 1008 checked balance 
+2025-01-26 17:32:06 - account 1008 checked balance 
+2025-01-26 17:32:38 - account 1009 checked balance 
+2025-01-26 17:32:39 - account 1009 checked balance 
+2025-01-26 17:33:10 - account 1005 checked balance 
+2025-01-26 17:33:11 - account 1005 checked balance 
+2025-01-26 17:34:16 - account 1004 checked balance 
+2025-01-26 17:34:17 - account 1004 checked balance 
+2025-01-26 17:34:33 - account 1009 checked balance 
+2025-01-26 17:34:33 - account 1009 checked balance 
+2025-01-26 17:36:52 - account 1001 checked balance 
+2025-01-26 17:38:36 - account 1001 checked balance 
+2025-01-26 17:38:51 - account 1004 checked balance 
+2025-01-26 17:39:40 - account 1001 checked balance 
+2025-01-26 17:39:41 - account 1001 checked balance 
+2025-01-26 17:40:02 - account 1006 checked balance 
+2025-01-26 17:40:04 - account 1006 checked balance 
+2025-01-26 17:41:23 - account 1005 checked balance 

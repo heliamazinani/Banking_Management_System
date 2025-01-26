@@ -1,0 +1,5 @@
+account 1010 created w balance 10
+Withdrawn 2, New Balance: 8
+Deposited 10, New Balance: 18
+Deposited 10, New Balance: 28
+account 1010 checked balance 

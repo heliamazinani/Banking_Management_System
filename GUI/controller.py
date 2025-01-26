@@ -27,7 +27,8 @@ def send_request(cardNumber, action, value=0):
     """Send a real request to the core and get the response."""
     request = json.dumps([cardNumber, action, value])
     print(f"Request from {cardNumber} is: {request}")
-    balance = "null"
+    res = "null"
+    flag = True
     
     # Writing the request to the core
     with open(REQUEST_PIPE, "w") as req_pipe:
@@ -37,5 +38,9 @@ def send_request(cardNumber, action, value=0):
     with open(RESPONSE_PIPE, "r") as res_pipe:
         response = res_pipe.read().strip()
         print(f"Response for {cardNumber}: {response}")
-    
-    return True
+        res = response
+        if response.startswith("E"):
+            flag = False
+    if action == "showBalance" or action == "transactions":
+        return res
+    return flag

@@ -5,3 +5,19 @@ account 1001 checked balance
 account 1001 checked balance 
 Deposited 10, New Balance: 10
 account 1001 checked balance 
+Withdrawn 10, New Balance: 0
+account 1001 checked balance 
+account 1001 checked balance 
+account 1001 checked balance 
+account 1001 checked balance 
+account 1001 checked balance 
+account 1001 checked balance 
+account 1001 checked balance 
+account 1001 checked balance 
+account 1001 checked balance 
+account 1001 checked balance 
+account 1001 checked balance 
+account 1001 checked balance 
+account 1001 checked balance 
+account 1001 checked balance 
+account 1001 checked balance 

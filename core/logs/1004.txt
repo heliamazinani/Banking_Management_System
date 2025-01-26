@@ -2,3 +2,16 @@ Withdrawn 5, New Balance: 245
 Deposited 12, New Balance: 257
 Deposited 10, New Balance: 267
 Deposited 7, New Balance: 274
+account 1004 checked balance 
+Deposited 10, New Balance: 284
+account 1004 checked balance 
+Deposited 10, New Balance: 294
+account 1004 checked balance 
+account 1004 checked balance 
+Withdrawn 5, New Balance: 289
+account 1004 checked balance 
+account 1004 checked balance 
+account 1004 checked balance 
+account 1004 checked balance 
+account 1004 checked balance 
+account 1004 checked balance 
