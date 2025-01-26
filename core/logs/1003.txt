@@ -1,1 +1,3 @@
 account 1003 checked balance 
+Deposited 5, New Balance: 30
+Deposited 5, New Balance: 35

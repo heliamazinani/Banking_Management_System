@@ -59,7 +59,7 @@ def showBalance(cardNumber):
             content = json.load(acc)
                
             logfunc(f"account {cardNumber} checked balance ",log_path=log_path)
-            print('prepared res : ' ,content['balance'] )
+            # print('prepared res : ' ,content['balance'] )
             return f"{content['balance']}"
     except FileNotFoundError:
         return "Account Not Found !"
@@ -161,10 +161,10 @@ def deposite(cardNumber, value):
     log_path = f'core/logs/{cardNumber}.txt'
 
     lock.acquire(timeout=2)
-    print('1')
+    # print('1')
     try:
         with open(file_path, "r+") as acc:
-            print('2')
+            # print('2')
             
             content = json.load(acc)
             # print('3')
