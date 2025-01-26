@@ -56,7 +56,7 @@ def create_multiple_clients(num_clients, num_requests_per_client):
 
 if __name__ == "__main__":
     # Set the number of client processes and number of requests per client
-    num_clients = 5  # Number of client processes
+    num_clients = 10  # Number of client processes
     num_requests_per_client = 10  # Number of requests each client sends
 
     # Start the heavy-light test with multiple clients sending real requests

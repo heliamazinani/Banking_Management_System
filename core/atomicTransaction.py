@@ -1,8 +1,8 @@
 class AtomicTransaction:
     def __init__(self):
-        self.operations = []  # List of operations to be executed
-        self.rollback_operations = []  # Store the rollback actions
-        self.success = True  # Initially, assume the transaction will succeed
+        self.operations = []
+        self.rollback_operations = []
+        self.success = True
 
     def add_operation(self, action, undo_action):
         """
@@ -20,22 +20,22 @@ class AtomicTransaction:
         If any operation fails, rollback changes.
         """
         try:
-            # Execute all operations
+            
             for op in self.operations:
-                op()  # Execute each operation
+                op()  
 
             print("Transaction committed successfully.")
 
         except Exception as e:
             print(f"Error occurred: {e}. Rolling back...")
-            self.rollback()  # Rollback if any operation fails
+            self.rollback() 
             self.success = False
 
     def rollback(self):
         """Rollback all operations if something fails"""
-        # Undo each operation in reverse order
+        
         for undo in reversed(self.rollback_operations):
-            undo()  # Execute undo action
+            undo() 
 
         print("Transaction rolled back.")
 

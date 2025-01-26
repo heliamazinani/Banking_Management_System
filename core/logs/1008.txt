@@ -1,4 +1,1 @@
-account 1008 transfered 6 to 1009
-account 1008 checked balance 
-account 1008 checked balance 
-account 1008 checked balance 
+account 1008 was transfered 5 

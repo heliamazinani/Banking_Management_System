@@ -5,3 +5,15 @@ account 1002 checked balance
 account 1002 checked balance 
 account 1002 checked balance 
 account 1002 checked balance 
+account 1002 checked balance 
+Withdrawn 50, New Balance: 195
+account 1002 was transfered 100 
+account 1002 checked balance 
+account 1002 checked balance 
+Withdrawn 50, New Balance: 245
+account 1002 checked balance
+account 1002 checked balance
+account 1002 checked balance
+account 1002 checked balance
+account 1002 checked balance
+account 1002 checked balance 
