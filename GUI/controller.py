@@ -19,11 +19,13 @@ def create_account(cardnumber,password):
     return send_request(cardnumber,"createAccount",10)
 
 def get_balance(cardnumber):
-    pass
+    return send_request(cardnumber,"showBalance",0)
+    
 def send_request(cardNumber, action, value=0):
     """Send a real request to the core and get the response."""
     request = json.dumps([cardNumber, action, value])
     print(f"Request from {cardNumber} is: {request}")
+    balance = "null"
     
     # Writing the request to the core
     with open(REQUEST_PIPE, "w") as req_pipe:
@@ -32,5 +34,9 @@ def send_request(cardNumber, action, value=0):
     # Reading the response from the core
     with open(RESPONSE_PIPE, "r") as res_pipe:
         response = res_pipe.read().strip()
+        balence = response
         print(f"Response for {cardNumber}: {response}")
+    if action == "showBalance":
+        return balance
+    
     return True

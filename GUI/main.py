@@ -105,7 +105,6 @@ class done(Screen):
         print ("clicked 7")
 
     def on_button_8(self,widget):
-
         self.manager.current = 'mainmenu'
         self.play_audio()      
         print ("clicked 8")
@@ -156,7 +155,9 @@ class Deposite(Screen):
         print(value)
         if deposite(card_number,Password,int(value)):
             print("yippe")
-            self.manager.current = 'mainmenu'
+            global balance
+            balance = get_balance(card_number)
+            self.manager.current = 'done'
 
     def on_button_8(self,widget):
         self.play_audio()      
@@ -206,7 +207,9 @@ class Withdraw(Screen):
         print(value)
         if withdraw(card_number,Password,int(value)):
             print("yippe")
-            self.manager.current = 'mainmenu'
+            global balance
+            balance = get_balance(card_number)
+            self.manager.current = 'done'
 
     def on_button_8(self,widget):
         self.play_audio()      
@@ -257,7 +260,9 @@ class Transfer(Screen):
         value = self.v.text
         if transfer(card_number,Password,int(value),second_card_nummber):
             print("yippe")
-            self.manager.current = 'mainmenu'
+            global balance
+            balance = get_balance(card_number)
+            self.manager.current = 'done'
 
     def on_button_8(self,widget):
         self.play_audio()      
@@ -349,7 +354,10 @@ class MainMenu(Screen):
         self.play_audio()      
         print ("clicked 4")
     def on_button_5(self,widget):
-        self.play_audio()      
+        self.play_audio()     
+        global balance
+        balance = get_balance(card_number) 
+        self.manager.current = 'done'
         print ("clicked 5")
     def on_button_6(self,widget):
         self.play_audio()      
@@ -447,6 +455,7 @@ class BankApp(App):
         sm.add_widget(Deposite(name='deposite'))
         sm.add_widget(Withdraw(name='wd'))
         sm.add_widget(CreateAccount(name='create'))
+        sm.add_widget(done(name='done'))
         return sm
 
 state = "auth"
