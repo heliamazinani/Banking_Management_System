@@ -232,7 +232,7 @@ if __name__ == "__main__":
 
     print("Core process is running...")
 
-    with ThreadPoolExecutor(max_workers=10) as executor:
+    with ThreadPoolExecutor(max_workers=20) as executor:
         while True:
             with open(REQUEST_PIPE, "r") as req_pipe:
                 request_data = req_pipe.read().strip()
