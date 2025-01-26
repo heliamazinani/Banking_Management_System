@@ -74,9 +74,8 @@ def showBalance(cardNumber):
             content = json.load(acc)
                
             logfunc(f"account {cardNumber} checked balance ",log_path=log_path)
-            return 1000
-            
-
+            print('prepared res : ' ,content['balance'] )
+            return f"{content['balance']}"
     except FileNotFoundError:
         return "Account Not Found !"
     finally:
@@ -226,6 +225,7 @@ def process_request(request):
         return "Invalid request format"
 
 def handle_client(request_data):
+    response = '*'
     try:
         request = json.loads(request_data)
         response = process_request(request)
@@ -234,6 +234,7 @@ def handle_client(request_data):
         response = "Invalid JSON request"
 
     with open(RESPONSE_PIPE, "w") as res_pipe:
+        print("response ",response)
         res_pipe.write(response)
 
 if __name__ == "__main__":

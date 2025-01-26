@@ -16,10 +16,10 @@ def send_request(cardNumber, action, value=0):
 
 if __name__ == "__main__":
     
-    send_request(1002,'transfer#1003',100)
+    send_request(1002,'showBalance',0)
     send_request(1003,'transfer#1004',100)
-    send_request(1004,'transfer#1005',100)
-    send_request(1007,'transfer#1008',5)
+    # send_request(1004,'transfer#1005',100)
+    # send_request(1007,'transfer#1008',5)
     # send_request(1004,'transfer#1002',100)
     # send_request(1004,'transfer#1002',100)
     

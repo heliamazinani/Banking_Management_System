@@ -1,4 +1,6 @@
 import json
+import os
+import time
 REQUEST_PIPE = "/tmp/core_request_pipe"
 RESPONSE_PIPE = "/tmp/core_response_pipe"
 def check_account(cardnumber):
@@ -30,13 +32,10 @@ def send_request(cardNumber, action, value=0):
     # Writing the request to the core
     with open(REQUEST_PIPE, "w") as req_pipe:
         req_pipe.write(request)
-    
+    # time.sleep(1)
     # Reading the response from the core
     with open(RESPONSE_PIPE, "r") as res_pipe:
         response = res_pipe.read().strip()
-        balence = response
         print(f"Response for {cardNumber}: {response}")
-    # if action == "showBalance":
-    #     return balance
     
     return True
