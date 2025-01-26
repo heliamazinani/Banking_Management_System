@@ -18,6 +18,8 @@
 <done>:
     inp: d
     v: dd
+    an: a
+
     BoxLayout:
         orientation:
         orientation: 'horizontal'
@@ -397,17 +399,17 @@
                             width: dp(1)
                             rectangle: (*self.pos, self.width, self.height)
                 Button:
+                    id:kh
                     background_color: (32/88 , 32/88 , 32/88)
                     size_hint: 1, 0.5
+                    on_press: root.rec()
                     canvas.before:
                         Color:
                             rgba: .6, .6, .6, 1
                         Line:
                             width: 2
                             rectangle: self.x, self.y, self.width, self.height
-                    Label:
-                        id: rece
-                        text :"hello"
+
     #right_bot
             BoxLayout:
                 id: top_right
@@ -464,6 +466,28 @@
                         Line:
                             width: 2
                             rectangle: self.x, self.y, self.width, self.height
+
+    Label:
+        id: a
+        pos_hint:{'x': 0.83, 'y': .71}
+        size_hint:(0.1, 0.02)
+        text: " "
+        color:  0,0,0,0.5
+        font_size: "5dp"
+
+        canvas.before:
+            Color:
+                rgba:1,1,1,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+                texture:
+                    Gradient.horizontal(
+                    get_color_from_hex("a9a9a9"), 
+                    get_color_from_hex("c9c9c9"), 
+                    get_color_from_hex("c9c9c9"), 
+                    get_color_from_hex("a9a9a9")
+                    )
 
 
 <CreateAccount>:

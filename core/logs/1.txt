@@ -1,2 +1,3 @@
 account 1 created w balance 10
 Deposited 55, New Balance: 65
+account 1 checked balance 

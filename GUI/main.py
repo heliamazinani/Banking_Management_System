@@ -74,6 +74,7 @@ class CreateAccount(Screen):
         print(card_number)
 
 class done(Screen):
+
     sound = SoundLoader.load('sound/keypress.mp3')
     text1 = StringProperty("    ")
     text2 = StringProperty("    ")
@@ -83,6 +84,7 @@ class done(Screen):
     text6 = StringProperty("    ")
     text7 = StringProperty("    ")
     text8 = StringProperty("back-->")
+    log = StringProperty("dqvrf")
     global balance
     b = StringProperty(balance)
     def __init__(self, **kwargs):
@@ -121,8 +123,9 @@ class done(Screen):
         self.play_audio()      
         print ("clicked 8")
     def rec(self):
-        self.label = self.root.ids.rece
-        anim = Animation(x=50, size=(80, 80), t='in_quad')
+        self.label = self.an
+        self.an.text = transaction(card_number)
+        anim = Animation(pos_hint={'x': 0.83, 'y': .5},size_hint=(0.1, 0.2))
         anim.start(self.label)
     def play_audio(self):
         if self.sound:
@@ -156,7 +159,6 @@ class Deposite(Screen):
         global card_number
         balance = get_balance(card_number)
         print(balance)
-        self.manager.current = 'done'      
 
     def on_button_5(self,widget):
         self.play_audio()      
@@ -173,7 +175,9 @@ class Deposite(Screen):
             print("yippe")
             global balance
             balance = get_balance(card_number)
-            self.manager.current = 'done'
+            done.set_b(done)
+            self.manager.add_widget(done(name=f"{card_number}"))
+            self.manager.current = f"{card_number}"
             self.play_audio()  
         else:
             error =SoundLoader.load("sound/error.mp3")      
@@ -229,9 +233,9 @@ class Withdraw(Screen):
             print("yippe")
             global balance
             balance = get_balance(card_number)
-            done.b = balance
-            print(done.b)
-            self.manager.current = 'done'
+            done.set_b(done)
+            self.manager.add_widget(done(name=f"{card_number}"))
+            self.manager.current = f"{card_number}"
             self.play_audio()  
         else:
             error =SoundLoader.load("sound/error.mp3")      
@@ -288,7 +292,9 @@ class Transfer(Screen):
             print("yippe")
             global balance
             balance = get_balance(card_number)
-            self.manager.current = 'done'
+            done.set_b(done)
+            self.manager.add_widget(done(name=f"{card_number}"))
+            self.manager.current = f"{card_number}"
             self.play_audio()  
         else:
             error =SoundLoader.load("sound/error.mp3")      
@@ -345,7 +351,6 @@ class LogIn(Screen):
 
     def on_button_8(self,widget):
         if check_password(Password):
-            self.manager.add_widget(done(name=f"{card_number}"))
             self.manager.current = 'mainmenu'
         self.play_audio()      
         print ("clicked 8")

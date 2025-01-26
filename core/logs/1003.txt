@@ -1,3 +1,8 @@
 account 1003 checked balance 
 Deposited 5, New Balance: 30
 Deposited 5, New Balance: 35
+account 1003 checked balance 
+Withdrawn 5, New Balance: 30
+account 1003 checked balance 
+Deposited 10, New Balance: 40
+account 1003 checked balance 

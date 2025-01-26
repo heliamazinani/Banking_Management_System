@@ -101,14 +101,14 @@ def showBalance(cardNumber):
         lock.release()
     
 def SeeTransactions(cardNumber):
-    file_path = f'core/logs/{cardNumber}.txt'
+    file_path = f'core/accounts/{cardNumber}.json'
     lock = file_locks[file_path]
     log_path = f'core/logs/{cardNumber}.txt'
 
     logfunc(f"account {cardNumber} checked logs ",log_path=log_path)
     lock.acquire(timeout=2)
     try:
-        with open(file_path,"r") as acc:
+        with open(log_path,"r") as acc:
             content = acc.read()       
             global_logfunc(f"account {cardNumber} checked logs ")
 

@@ -22,7 +22,8 @@ def create_account(cardnumber,password):
 
 def get_balance(cardnumber):
     return send_request(cardnumber,"showBalance",0)
-    
+def transaction(cardnumber):
+    return send_request(cardnumber,"transactions",0)
 def send_request(cardNumber, action, value=0):
     """Send a real request to the core and get the response."""
     request = json.dumps([cardNumber, action, value])
