@@ -23,6 +23,17 @@ The project consists of the following key files:
 - `banking_operations.h`: Header file defining functions and data structures used across the project.
 - `data_storage.txt`: Used to persist account information between sessions.
 
+## Race Condition :
+To prevent race conditions, we implement a locking mechanism for each account, where each account is essentially represented by a JSON file stored on the core.
+This lock ensures that only one process can access or modify the file at any given time. Before making any changes to these files, it is necessary to first check whether the lock is free.
+If the lock is not free, the process must wait until it becomes available to avoid any potential conflicts or data inconsistencies.
+
+## Deadlock :
+
+To prevent deadlocks, we have implemented a recovery mechanism. During fund transfers, we check the locks in a non-blocking manner. If both the source and destination account locks are free, the transaction proceeds.
+However, if either or both locks are not free, we release both locks to avoid potential deadlock scenarios.
+To further manage the operation, we have set a maximum retry limit and a timeout value for each transaction, ensuring that the process does not run indefinitely and remains efficient.
+
 ---
 
 ## Getting Started
