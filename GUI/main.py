@@ -139,6 +139,7 @@ class Deposite(Screen):
         global balance
         global card_number
         balance = get_balance(card_number)
+        print(balance)
         self.manager.current = 'done'      
 
     def on_button_5(self,widget):

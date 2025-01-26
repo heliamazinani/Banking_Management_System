@@ -36,7 +36,7 @@ def send_request(cardNumber, action, value=0):
         response = res_pipe.read().strip()
         balence = response
         print(f"Response for {cardNumber}: {response}")
-    if action == "showBalance":
-        return balance
+    # if action == "showBalance":
+    #     return balance
     
     return True

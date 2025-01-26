@@ -9,8 +9,7 @@ REQUEST_PIPE = "/tmp/core_request_pipe"
 RESPONSE_PIPE = "/tmp/core_response_pipe"
 
 file_locks = defaultdict(threading.Lock)
-
-
+log_file_lock = threading.Lock
 
 def logfunc(log_entry, log_path):
     print(log_entry)
@@ -59,7 +58,7 @@ def showBalance(cardNumber):
             content = json.load(acc)
                
             logfunc(f"account {cardNumber} checked balance ",log_path=log_path)
-            return content['balance']
+            return 1000
             
 
     except FileNotFoundError:

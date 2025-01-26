@@ -11,9 +11,13 @@
 #:import Gradient kivy_gradient.Gradient
 #:import get_color_from_hex kivy.utils.get_color_from_hex
 
+
+
+
+
 <done>:
     inp: d
-    cn: c
+    v: dd
     BoxLayout:
         orientation:
         orientation: 'horizontal'
@@ -150,34 +154,35 @@
                                 get_color_from_hex("6a9cc4"), 
                                 get_color_from_hex("3781b0")
                                 )
-
                     AnchorLayout:
                         size_hint: 1,0.3
                         anchor_x: 'center'
                         anchor_y: 'center'
                         Label:
+                            
                             id: d
-                            text: root.b
-                            color: textcolor
                             size_hint: 1,0.5
                             font_name: textfontname
                             font_size: fontsize
                             size_hint: None, None
                             size: 200, 50
-
+                            text: root.b
+                            text_color: 1,1,1,0.5
+ 
                     AnchorLayout:
                         size_hint: 1,0.3
                         anchor_x: 'center'
                         anchor_y: 'center'
                         Label:
-                            id: c
-                            text: "succesfull"
-                            color: textcolor
+                            
+                            id: dd
                             font_name: textfontname
                             font_size: fontsize
                             size_hint: None, None
-                            size: 100, 50
-                 
+                            size: 200, 50
+                            text:"success"
+                            text_color: 1,1,1,0.5
+                
 
                     GridLayout:
                         cols:2
@@ -213,7 +218,7 @@
                             text: root.text7
                             color: textcolor
                             font_name: fontname
-                            font_size: self.height / 2
+                            font_size: self.height / 1.5
                         Label:
                             text: root.text4
                             color: textcolor
@@ -284,6 +289,180 @@
                             Line:
                                 width: dp(1)
                                 rectangle: (*self.pos, self.width, self.height)
+
+    #cash_layout
+            BoxLayout:
+                padding : ["100dp","20dp","100dp","30dp"]
+                spacing: "20dp"
+                orientation: 'vertical'
+                canvas.before:
+                    Color:
+                        rgba:1,1,1,0.5
+                    Rectangle:
+                        pos:self.pos
+                        size:self.size
+                        texture:
+                            Gradient.vertical(
+                            get_color_from_hex("383838"), 
+                            get_color_from_hex("656565"), 
+                            get_color_from_hex("707070"), 
+                            get_color_from_hex("aaaaaa")
+                            )
+                    Color:
+                        rgba:0.9,0.9,0.9,0.1
+                    Line:
+                        width: dp(1)
+                        rectangle: (*self.pos, self.width, self.height)
+                Label:
+                    text: "CASH"
+                    color: cardtextcolor
+                    font_name: font2
+                    canvas.before:
+                        Color:
+                            rgba:1,1,1,1
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                            texture:
+                                Gradient.vertical(
+                                get_color_from_hex("700b1d"), 
+                                get_color_from_hex("800b1d") ,
+                                get_color_from_hex("860b1d") ,
+                                get_color_from_hex("900b1d")
+                                )
+                        Color:
+                            rgba:0.1,0,0,0.5
+                        Line:
+                            width: dp(1)
+                            rectangle: (*self.pos, self.width, self.height)
+                Button:
+                    background_color: (32/88 , 32/88 , 32/88)
+                    size_hint: 1, 0.7
+                    canvas.before:
+                        Color:
+                            rgba: .6, .6, .6, 1
+                        Line:
+                            width: 2
+                            rectangle: self.x, self.y, self.width, self.height
+    #right_top
+        BoxLayout:
+            id: right
+            orientation: 'vertical'
+            padding : ["20dp","40dp","20dp","30dp"]
+            spacing: "40dp"
+            BoxLayout:
+                id: top_right
+                orientation: 'vertical'
+                padding : ["20dp","10dp","20dp","115dp"]
+                spacing: "30dp"
+                canvas.before:
+                    Color:
+                        rgba:1,1,1,0.3
+                    Rectangle:
+                        pos:self.pos
+                        size:self.size
+                        texture:
+                            Gradient.vertical(
+                            get_color_from_hex("303030"), 
+                            get_color_from_hex("404040") ,
+                            get_color_from_hex("202020"),
+                            get_color_from_hex("c1c1c1"), 
+                            get_color_from_hex("929292")
+                            )
+                    Color:
+                        rgba:0,0,0,0.5
+                    Line:
+                        width: dp(1)
+                        rectangle: (*self.pos, self.width, self.height)
+                Label:
+                    text: "RECEIPT"
+                    color: cardtextcolor
+                    font_name: font2
+                    canvas.before:
+                        Color:
+                            rgba:1,1,1,1
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                            texture:
+                                Gradient.vertical(
+                                get_color_from_hex("700b1d"), 
+                                get_color_from_hex("860b1d") ,
+                                get_color_from_hex("950b1d") ,
+                                get_color_from_hex("900b1d")
+                                )
+                        Color:
+                            rgba:0.1,0,0,0.5
+                        Line:
+                            width: dp(1)
+                            rectangle: (*self.pos, self.width, self.height)
+                Button:
+                    background_color: (32/88 , 32/88 , 32/88)
+                    size_hint: 1, 0.5
+                    canvas.before:
+                        Color:
+                            rgba: .6, .6, .6, 1
+                        Line:
+                            width: 2
+                            rectangle: self.x, self.y, self.width, self.height
+    #right_bot
+            BoxLayout:
+                id: top_right
+                orientation: 'vertical'
+                padding : ["20dp","10dp","20dp","115dp"]
+                spacing: "30dp"
+                canvas.before:
+                    Color:
+                        rgba:1,1,1,0.3
+                    Rectangle:
+                        pos:self.pos
+                        size:self.size
+                        texture:
+                            Gradient.vertical(
+                            get_color_from_hex("303030"), 
+                            get_color_from_hex("404040") ,
+                            get_color_from_hex("202020"),
+                            get_color_from_hex("c1c1c1"), 
+                            get_color_from_hex("929292")
+                            )
+                    Color:
+                        rgba:0,0,0,0.5
+                    Line:
+                        width: dp(1)
+                        rectangle: (*self.pos, self.width, self.height)
+                Label:
+                    text: "CARD"
+                    color: cardtextcolor
+                    font_name: font2
+                    canvas.before:
+                        Color:
+                            rgba:1,1,1,1
+                        Rectangle:
+                            pos:self.pos
+                            size:self.size
+                            texture:
+                                Gradient.vertical(
+                                get_color_from_hex("700b1d"), 
+                                get_color_from_hex("800b1d") ,
+                                get_color_from_hex("860b1d") ,
+                                get_color_from_hex("800b1d")
+                                )
+                        Color:
+                            rgba:0.1,0,0,0.5
+                        Line:
+                            width: dp(1)
+                            rectangle: (*self.pos, self.width, self.height)
+                Button:
+                    background_color: (32/88 , 32/88 , 32/88)
+                    size_hint: 1, 0.5
+                    canvas.before:
+                        Color:
+                            rgba: .6, .6, .6, 1
+                        Line:
+                            width: 2
+                            rectangle: self.x, self.y, self.width, self.height
+
+
 <CreateAccount>:
     inp: d
     cn: c
